@@ -2,7 +2,11 @@
   "name": "TL;DR",
   "version": "1.0",
   "description": "Chromes extension that summarizes links!",
-  "permissions": ["declarativeContent", "storage"],
+  "permissions": [
+    "declarativeContent",
+    "storage",
+    "activeTab"
+  ],
   "background": {
     "scripts" : ["background.js"],
     "persistent": false
@@ -16,6 +20,12 @@
       "128": "images/icon128.png"
     }
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
   "icons": {
     "16": "images/icon16.png",
     "32": "images/icon32.png",
