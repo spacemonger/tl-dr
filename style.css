@@ -1,0 +1,6 @@
+.tl-dr-sum-button {
+    display: inline-block;
+    visibility: visible;
+    margin-left: 5px;
+    cursor: pointer;
+}
