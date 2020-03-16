@@ -12,9 +12,14 @@ for (i = 0; i < searches.length; i++) {
   newDiv.innerText = "TL;DR" ;
   newDiv.className = ("tl-dr-sum-button");
   newDiv.setAttribute("data-url", links[i]);
+  console.log(links[i]);
 
   searches[i].appendChild(newDiv); //add tl;dr on the side
   
+  searches[i].querySelector(".tl-dr-sum-button").addEventListener("click", function(){
+    console.log(links[i]);
+  });
   }
 }
+
 
