@@ -1,13 +1,23 @@
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-     var xhttp = new XMLHttpRequest();
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
      
-     xhttp.open("POST", "http://127.0.0.1:5000/test", true);
+  const api_url = "http://127.0.0.1:5000/api"
+  
+  fetch(api_url, {
+    method: 'POST',
+    body: JSON.stringify(request),
+    headers:{
+      'Content-Type': 'application/json'
+    } })
+  .then(data => { return data.json() })
+  .then(function(summary) {
+       text = summary.json["data"];
+  })
+  .catch(error => console.error('Error:', error));
 
-     xhttp.send(request); 
+  sendResponse(request)
 
-    sendResponse(request);
+return true;
 });
 
 
