@@ -5,14 +5,15 @@
   "permissions": [
     "declarativeContent",
     "storage",
-    "activeTab"
+    "activeTab",
+    "http://127.0.0.1:5000/api"
   ],
   "background": {
-    "scripts" : ["background.js"],
+    "scripts" : ["FrontEnd/background.js"],
     "persistent": false
   },
   "browser_action": {
-    "default_popup": "popup.html",
+    "default_popup": "FrontEnd/popup.html",
     "default_icon": {
       "16": "images/icon16.png",
       "32": "images/icon32.png",
@@ -23,7 +24,8 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["FrontEnd/content.js"],
+      "css": ["FrontEnd/style.css"]
     }
   ],
   "icons": {
