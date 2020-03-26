@@ -1,7 +1,8 @@
-  
+
 import requests
 from bs4 import BeautifulSoup
 import lxml
+
 
 def scrape(url):
     page = requests.get(url)
@@ -29,6 +30,4 @@ def scrape(url):
         link.decompose
     soup.smooth()
     return soup.prettify()
-
-
 
