@@ -1,21 +1,26 @@
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
      
-  const api_url = "http://127.0.0.1:5000/api"
+  const serverUrl = "http://127.0.0.1:5000/api"
   
-  fetch(api_url, {
+  fetch(serverUrl + "?" + request, {
+    params: request,
     method: 'POST',
+    mode: "cors",
     body: JSON.stringify(request),
     headers:{
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/args'
     } })
-  .then(data => { return data.json() })
+  .then((data) => { 
+    if (!data.ok) {
+      sendResponse("error")
+    }
+    return data.json() })
   .then(function(summary) {
-       text = summary.json["data"];
+       sendResponse(summary["data"]);
   })
   .catch(error => console.error('Error:', error));
-
-  sendResponse(request)
+  sendResponse(serverUrl + "?" + request)
 
 return true;
 });
