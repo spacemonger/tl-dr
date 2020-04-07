@@ -5,33 +5,40 @@
   "permissions": [
     "declarativeContent",
     "storage",
-    "activeTab"
+    "activeTab",
+    "http://127.0.0.1:5000/api"
   ],
   "background": {
-    "scripts" : ["background.js"],
+    "scripts" : ["FrontEnd/background.js"],
     "persistent": false
   },
   "browser_action": {
-    "default_popup": "popup.html",
+    "default_popup": "FrontEnd/popup.html",
     "default_icon": {
-      "16": "images/icon16.png",
-      "32": "images/icon32.png",
-      "48": "images/icon48.png",
-      "128": "images/icon128.png"
+      "16": "images/16x16.png",
+      "32": "images/32x32.png",
+      "48": "images/48x48.png",
+      "128": "images/128x128.png"
     }
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "css": ["style.css"]
+      "js": ["FrontEnd/content.js"],
+      "css": ["FrontEnd/style.css"]
     }
   ],
   "icons": {
-    "16": "images/icon16.png",
-    "32": "images/icon32.png",
-    "48": "images/icon48.png",
-    "128": "images/icon128.png"
+    "16": "images/16x16.png",
+    "32": "images/32x32.png",
+    "48": "images/48x48.png",
+    "128": "images/128x128.png"
   },
+  "web_accessible_resources": [
+    "images/16x16.png",
+    "images/32x32.png",
+    "images/48x48.png",
+    "images/128x128.png"
+  ],
   "manifest_version": 2
 }
