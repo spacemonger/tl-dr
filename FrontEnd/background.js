@@ -3,7 +3,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
      
   const serverUrl = "http://127.0.0.1:5000/api"
   
-  fetch(serverUrl + "?" + request, {
+  fetch(serverUrl + "?url=" + request, {
     params: request,
     method: 'POST',
     mode: "cors",
@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
        sendResponse(summary["data"]);
   })
   .catch(error => console.error('Error:', error));
-  sendResponse(serverUrl + "?" + request)
+  sendResponse(serverUrl + "?url=" + request)
 
 return true;
 });
