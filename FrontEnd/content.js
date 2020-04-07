@@ -1,9 +1,9 @@
 window.onload = function () {
   //create HTMLCollection of all B6fmyf divs
-  var searches = document.querySelectorAll(".B6fmyf" , ".LC20lb MMgsKf");
+  var searches = document.querySelectorAll(".B6fmyf" , ".LC20lb MMgsKf"); //videos not integrated yet because the video class can also show up for nomarl searches
   var links = [];
   
-  iconUrl = chrome.runtime.getURL("images/16x16.png");
+  iconUrl = chrome.runtime.getURL("images/icon16.png");
 
 var i;
 for (i = 0; i < searches.length; i++) {
@@ -20,13 +20,14 @@ for (i = 0; i < searches.length; i++) {
     newDiv.addEventListener("click", function(){
       chrome.runtime.sendMessage(newDiv.dataset.url, (response) => {
         console.log(response);
+        
       });
       });
       
     searches[i].appendChild(newDiv); //add tl;dr on the side
   }());
 
-  console.log(links)
+
 }
 }
 
