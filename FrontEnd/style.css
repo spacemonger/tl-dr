@@ -1,6 +1,114 @@
-.tl-dr-sum-button {
-    display: inline-block;
-    visibility: visible;
-    margin-left: 5px;
-    cursor: pointer;
+@font-face {
+	font-family: 'questrial';
+    src: url(Questrial-Regular.ttf);
+    font-style: normal;
+    font-weight: normal;
 }
+
+.backbox {
+    background-color: #f3f3f3ff;
+    border-width: 4px;
+      border-color: #ffd966;
+      border-style: solid;
+    border-radius: 10px;
+    height: 122px;
+    width: 255px;
+    position: absolute;
+    left: 34px;
+    top: 115px;
+    z-index:-1;
+  }
+
+  div {
+    padding: 2px;
+  }
+
+  #bigBox {
+    width: 320px;
+    height: 390px;
+    margin: 0;
+  }
+
+  h1 {
+    text-align : center;
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    font-family: questrial;
+    font-size: 17px;
+    text-align : left;
+    margin-left: 20px;
+    position: absolute;
+    top: 119px;
+    left: 45px;
+  }
+
+  span {
+    text-align: left;
+    font-family: questrial;
+    position:absolute;
+    left: 70px;
+    top: 146px;
+  }
+
+  h3 {
+    font-family: questrial;
+    text-align : justify;
+    text-justify: inter-word;
+    position: absolute;
+    left: 160px;
+    top: 147px;
+    font-size: 13px;
+    color: #626262;
+    line-height: 16px;
+  }
+
+  p {
+    font-size: 14px;
+    margin-left: 33px;
+    margin-top: 132px;
+    margin-bottom: 5px;
+    color: #626262;
+    line-height:16px;
+    font-family: questrial;
+    text-align : left;
+  }
+
+  h4 {
+    text-align : left;
+    font-family: questrial;
+    font-size: 15px;
+    font-style: italic;
+    margin-left: 60px;
+    margin-top:5px;
+    margin-bottom:10px;
+  }
+
+  button {
+    border-radius: 50%;
+    padding: 7px;
+    position: absolute;
+    top: 331px;
+    left: 42px;
+    border-style: none;
+    cursor: pointer;
+  }
+
+  .button2 {
+    border-radius: 50%;
+    padding: 7px;
+    position: absolute;
+    top: 356px;
+    left: 42px;
+    border-style: none;
+    cursor: pointer;
+  }
+
+  h5 {
+    font-family: questrial;
+    font-size:9px;
+    position: absolute;
+    top: 385px;
+    right:5px;
+  }
