@@ -42,7 +42,7 @@
     position: absolute;
     top: 119px;
     left: 45px;
-	font-style: none;
+	font-style: 0;
   }
 
   span {
