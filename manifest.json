@@ -38,7 +38,8 @@
     "images/icon16.png",
     "images/icon32.png",
     "images/icon48.png",
-    "images/icon28.png"
+    "images/icon28.png",
+    "fonts/Questrial-Regular.ttf"
   ],
   "manifest_version": 2
 }
