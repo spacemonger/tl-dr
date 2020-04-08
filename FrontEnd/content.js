@@ -3,7 +3,7 @@ window.onload = function () {
   var searches = document.querySelectorAll(".B6fmyf" , ".LC20lb MMgsKf"); //videos not integrated yet because the video class can also show up for nomarl searches
   var links = [];
   
-  iconUrl = chrome.runtime.getURL("images/icon16.png");
+  iconUrl = chrome.runtime.getURL("/images/icon16.png");
 
 var i;
 for (i = 0; i < searches.length; i++) {
