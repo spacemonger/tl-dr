@@ -25,7 +25,7 @@
     {
       "matches": ["<all_urls>"],
       "js": ["FrontEnd/content.js"],
-      "css": ["FrontEnd/style.css"]
+      "css": ["FrontEnd/content.css"]
     }
   ],
   "icons": {
@@ -38,8 +38,7 @@
     "images/icon16.png",
     "images/icon32.png",
     "images/icon48.png",
-    "images/icon28.png",
-    "fonts/Questrial-Regular.ttf"
+    "images/icon28.png"
   ],
   "manifest_version": 2
 }

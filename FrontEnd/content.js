@@ -20,8 +20,13 @@ for (i = 0; i < searches.length; i++) {
     newDiv.addEventListener("click", function(){
       chrome.runtime.sendMessage(newDiv.dataset.url, (response) => {
         console.log(response);
-        
       });
+      var body = document.querySelector("body");
+      var summary = document.createElement("div");
+      summary.className = ("tldr-summary");
+      var shadow = document.querySelector("tldr-summary").createShadowRoot();
+      var template = document.querySelector()
+      body.appendChild(summary)
       });
       
     searches[i].appendChild(newDiv); //add tl;dr on the side
