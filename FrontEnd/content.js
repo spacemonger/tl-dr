@@ -42,16 +42,15 @@ customElements.define("tldr-box", TldrBox);
 special element could be implemented in the future, but most likely not
 */
 
-
 window.onload = function () {
 
   var tldr = document.createElement("div");
   tldr.id = ("tl-dr-popup");
   var shadowRoot =  tldr.attachShadow({mode:'open'});
   shadowRoot.innerHTML = `
-  <div id="tl-dr-wrapper" style="visibility:hidden"></div>
-  `;
+  <div id="tl-dr-wrapper" style="visibility:hidden"></div>`;
   document.body.appendChild(tldr);
+
 
   //create HTMLCollection of all B6fmyf divs
   var searches = document.querySelectorAll(".B6fmyf" , ".LC20lb MMgsKf"); //videos not integrated yet because the video class can also show up for nomarl searches
@@ -76,7 +75,7 @@ for (i = 0; i < searches.length; i++) {
       chrome.runtime.sendMessage(newDiv.dataset.url, (response) => {
         console.log(response);
       });
-      document.querySelector(tldr).style.visibility = "visible";
+      document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').style.visibility = "visible";
       });
       
     searches[i].appendChild(newDiv); //add tl;dr on the side
