@@ -41,10 +41,12 @@ window.onload = function () {
     color: rgb(30,30,30);
   }
   </style>
+  `
+  /*
   <div id="tl-dr-content">
       <a>{{port}}</a>
   </div>
-  `
+  */
 
 var i;
 for (i = 0; i < searches.length; i++) {
@@ -67,6 +69,7 @@ for (i = 0; i < searches.length; i++) {
 
       });
       render(template, document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper'));
+      document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').style.visibility = "visible";
       });
       
     searches[i].appendChild(newDiv); //add tl;dr on the side
