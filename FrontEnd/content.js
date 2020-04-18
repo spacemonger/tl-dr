@@ -41,12 +41,13 @@ window.onload = function () {
     color: rgb(30,30,30);
   }
   </style>
-  `
-  /*
   <div id="tl-dr-content">
-      <a>{{port}}</a>
-  </div>
-  */
+  <a>{{port}}</a>
+</div>
+  `
+  
+ 
+  
 
 var i;
 for (i = 0; i < searches.length; i++) {
@@ -68,14 +69,24 @@ for (i = 0; i < searches.length; i++) {
         console.log(response);
 
       });
-      render(template, document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper'));
-      document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').style.visibility = "visible";
       });
       
     searches[i].appendChild(newDiv); //add tl;dr on the side
   }());
 
 }
+
+document.addEventListener("click", function(event){
+  if(event.target.closest('#tl-dr-popup')) return;
+  if(event.target.closest('.tl-dr-sum-button')) {
+    render(template, document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper'));
+    document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').style.visibility = "visible";
+    return;
+  }
+
+  document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').style.visibility = "hidden";
+
+});
 
 var render = function(template, node) {
     if (!node) return;
