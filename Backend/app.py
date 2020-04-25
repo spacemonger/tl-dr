@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scrape import scrape
 
@@ -14,12 +14,20 @@ def main():
 def getUrl():
         # get url that the user has entered
         try:
-            print("Entered")
             search = request.args['url']
-            return scrape(search)
+            return jsonify({"html": scrape(search)}) 
         except:
-            return "not working"
-    
+            return jsonify({"rating": 'Not Available.'})
+def template():
+
+        try:
+            search = request.args['url']
+            return jsonify({"rating": 'Available.'}) #render_templates('summary.html', search = search)
+        except:
+            return jsonify({"rating": 'Not Available.'})
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

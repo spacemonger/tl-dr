@@ -11,8 +11,12 @@ window.onload = function () {
 
 
   //create HTMLCollection of all B6fmyf divs
-  var searches = document.querySelectorAll(".B6fmyf" , ".LC20lb MMgsKf"); //videos not integrated yet because the video class can also show up for nomarl searches
+  var searches = document.querySelectorAll(".B6fmyf"); //videos not integrated yet because the video class can also show up for nomarl searches
+  var searchTitles = document.querySelectorAll(".LC20lb");
+  console.log(searches);
+  console.log(searchTitles);
   var links = [];
+  var titles = [];
 
   iconUrl = chrome.runtime.getURL("/images/icon16.png");
   //template = chrome.runtime.getURL("/FrontEnd/summary.html");
@@ -54,6 +58,7 @@ for (i = 0; i < searches.length; i++) {
 
   
   links[i] = searches[i].previousSibling.href;
+  titles[i] = searches[i].previousSibling.innerText;
   
   (function() {
     var newDiv = document.createElement("div");
@@ -61,8 +66,10 @@ for (i = 0; i < searches.length; i++) {
     newDiv.innerHTML = '<img src="'+ iconUrl +'">';
     newDiv.className = ("tl-dr-sum-button");
     newDiv.setAttribute("data-url", links[i]);
+    newDiv.setAttribute("data-title", titles[i]);
     newDiv.addEventListener("click", function(){
-      chrome.runtime.sendMessage(newDiv.dataset.url, (response) => {
+    var info = {link: newDiv.dataset.url, title: newDiv.dataset.title}
+      chrome.runtime.sendMessage(info, (response) => {
             if(response){
 
         }
