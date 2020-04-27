@@ -1,8 +1,13 @@
 import spacy
 from spacy import displacy
+import pytextrank
 
-
+spacy.prefer_gpu()
 nlp = spacy.load("en_core_web_sm")
+
+tr = pytextrank.TextRank()
+nlp.add_pipe(tr.PipelineComponent, name='textrank', last=True)
+
 #Reference https://www.britannica.com/science/Lenzs-law
 text = """Lenz's law
         PHYSICS
@@ -32,3 +37,6 @@ text = """Lenz's law
         the coil in addition to the heating effect, which would violate conservation of energy."""
 #Corpus/Gold Standard
 doc = nlp(text)
+
+for sent in doc._.textrank.summary(limit_phrases=15, limit_sentences=5):
+    print(sent)
