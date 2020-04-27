@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scrape import scrape
+from summarize import summary
 
 app = Flask(__name__)
 CORS(app)
@@ -15,9 +16,10 @@ def getUrl():
         # get url that the user has entered
         try:
             search = request.args['url']
-            return jsonify({"html": scrape(search)}) 
+            return summary(scrape(search)) #jsonify({"html": scrape(search)}) 
         except:
             return jsonify({"rating": 'Not Available.'})
+            '''
 def template():
 
         try:
@@ -25,7 +27,7 @@ def template():
             return jsonify({"rating": 'Available.'}) #render_templates('summary.html', search = search)
         except:
             return jsonify({"rating": 'Not Available.'})
-
+'''
 
 
 

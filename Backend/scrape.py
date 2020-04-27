@@ -46,5 +46,6 @@ def scrape(url):
     for link in soup.find_all('link'):
         link.decompose
     soup.smooth()
-    return soup.prettify()
+    return soup.get_text()
+    
 
