@@ -16,10 +16,13 @@ def getUrl():
         # get url that the user has entered
         try:
             search = request.args['url']
+            # print(summary(scrape(search)))
             return summary(scrape(search)) #jsonify({"html": scrape(search)}) 
         except:
             return jsonify({"rating": 'Not Available.'})
-            '''
+            
+            
+'''
 def template():
 
         try:
