@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scrape import scrape
 from summarize import summary
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -17,7 +18,7 @@ def getUrl():
         try:
             search = request.args['url']
             # print(summary(scrape(search)))
-            return summary(scrape(search)) #jsonify({"html": scrape(search)}) 
+            return json.dumps(summary(scrape(search))) #jsonify({"html": scrape(search)}) 
         except:
             return jsonify({"rating": 'Not Available.'})
             
