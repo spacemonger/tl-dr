@@ -73,7 +73,19 @@ for (i = 0; i < searches.length; i++) {
             if(response){
 
         }
-        console.log(response);
+        var x;
+        var paragraphs = response;
+        console.log(paragraphs.length);
+        for (paragraph in paragraphs){
+          console.log(paragraphs[x]);
+          var new_par = document.createElement("p");
+          new_par.innerText = paragraph;
+          //var par_id = "new_par" + x;
+          //new_par.id = par_id; 
+          document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(new_par);
+          x++;
+        }
+        console.log(paragraphs);
 
       });
       });

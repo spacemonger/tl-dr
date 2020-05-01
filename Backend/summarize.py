@@ -14,10 +14,11 @@ def summary(text):
 
         doc = nlp(text)
         tldr = []
+
         for sent in doc._.textrank.summary(limit_phrases=15, limit_sentences=5):
                 tldr.append(sent)
                 
-        return repr(tldr)
+        return tldr
 
 
 #Reference https://www.britannica.com/science/Lenzs-law
