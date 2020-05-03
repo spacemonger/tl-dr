@@ -16,7 +16,7 @@ def summary(text):
         tldr = []
 
         for sent in doc._.textrank.summary(limit_phrases=15, limit_sentences=5):
-                tldr.append(sent)
+                tldr.append(repr(sent))
                 
         return tldr
 

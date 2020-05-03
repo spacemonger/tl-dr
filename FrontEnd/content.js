@@ -46,7 +46,6 @@ window.onload = function () {
   }
   </style>
   <div id="tl-dr-content">
-  <a>{{port}}</a>
 </div>
   `
   
@@ -73,19 +72,17 @@ for (i = 0; i < searches.length; i++) {
             if(response){
 
         }
+        
         var x;
-        var paragraphs = response;
-        console.log(paragraphs.length);
-        for (paragraph in paragraphs){
-          console.log(paragraphs[x]);
+        for (x in response.paragraphs){
+          console.log(response.paragraphs[x]);
           var new_par = document.createElement("p");
-          new_par.innerText = paragraph;
+          new_par.innerText = response.paragraphs[x];
           //var par_id = "new_par" + x;
           //new_par.id = par_id; 
           document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(new_par);
           x++;
         }
-        console.log(paragraphs);
 
       });
       });
