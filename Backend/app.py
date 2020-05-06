@@ -4,12 +4,6 @@ from scrape import scrape
 from summarize import summary
 import json
 
-class ComplexEncoder(json.JSONEncoder):
-    def default(self, o): # pylint: disable=E0202
-        if isinstance(o, complex):
-            return o.__dict__
-        
-        return json.JSONEncoder.default(self, o)
 
 
 app = Flask(__name__)
