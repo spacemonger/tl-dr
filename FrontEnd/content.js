@@ -18,8 +18,8 @@ window.onload = function () {
   var titles = [];
 
   iconUrl = chrome.runtime.getURL("/images/icon16.png");
- 
-  var summary=[];  
+  
+  var opened=-1; //store whether the summary box is already displayed
 
   var i;
   for (i = 0; i < searches.length; i++) {
@@ -35,19 +35,42 @@ window.onload = function () {
       newDiv.className = ("tl-dr-sum-button");
       newDiv.setAttribute("data-url", links[i]);
       newDiv.setAttribute("data-title", titles[i]);
-      newDiv.addEventListener("click", function(){
-      var info = {link: newDiv.dataset.url, title: newDiv.dataset.title}
-        chrome.runtime.sendMessage(info, (response) => {
-          //     if(response){
+      searches[i].appendChild(newDiv); //add tl;dr on the side
+    }());
 
-          // }
+  }
+
+  var currentButton; //compare which summary is currently opened
+
+  document.addEventListener("click", function(event){
+    var targetButton=event.target.parentElement;
+
+    if(event.target.closest('#tl-dr-popup')) return;
+    if(event.target.closest('.tl-dr-sum-button')) {
+
+      if (opened==-1 || event.target.parentElement.dataset.url!=currentButton) {
+
+        currentButton=event.target.parentElement.dataset.url;
+
+        render(templateLoading, document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper'));
+        document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').style.visibility = "visible";      
+        opened=0;
+
+        if (targetButton==null) {
+          console.log("u suck");
+        }
+
+        var info = {link: targetButton.dataset.url, title: targetButton.dataset.title}
+        chrome.runtime.sendMessage(info, (response) => {
           
+          render(templateSummary, document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper'));
           var title=document.createElement("h1");
           title.className="title";
           title.innerHTML="Placeholder Title";
           document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(title);
           var x;
           for (x in response.paragraphs){
+
             console.log(response.paragraphs[x]);
             //summary[x] = response.paragraphs[x];
             var sentence=document.createElement("span");
@@ -57,26 +80,13 @@ window.onload = function () {
             space.className="space";
             document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(space);
             x++;
+
           }
 
         });
-        });
         
-      searches[i].appendChild(newDiv); //add tl;dr on the side
-    }());
-
-  }
-
-  var opened=-1; //store whether the summary box is already displayed
-  document.addEventListener("click", function(event){
-    if(event.target.closest('#tl-dr-popup')) return;
-    if(event.target.closest('.tl-dr-sum-button')) {
-      if (opened==-1) {
-        //render(templateLoading, document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper'));
-        generateSummary(templateSummary, document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper'));
-        document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').style.visibility = "visible";      
         opened=0;
-            
+        
       } else {
         document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').style.visibility = "hidden";
         opened=-1;
@@ -90,22 +100,6 @@ window.onload = function () {
       if (!node) return;
       node.innerHTML = templateLoading;
   };
-
-  var generateSummary = function(templateSummary, node) {
-    if (!node) return;
-    node.innerHTML = templateSummary;
-    // document.getElementById("title").innerHTML="placeholder title";
-
-    // var i;
-    // for (i=0; i<sentence.length; i++) {
-    //   var sentence=document.createElement("span");
-    //   sentence.innerHTML=summary[i];
-    //   node.appendChild(sentence); //add sentence to the summary box
-    //   var space=document.createElement("div"); //create spacing between each sentence
-    //   space.className="space";
-    //   node.appendChild(space);
-    // }
-  }
 
   var templateLoading = `
     <style>
