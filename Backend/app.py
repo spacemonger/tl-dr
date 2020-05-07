@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scrape import scrape
+from scrape import title
 from summarize import summary
 import json
 
@@ -25,8 +26,9 @@ def getUrl():
         # get url that the user has entered
         try:
             search = request.args['url']
-            
+
             this_dict = {
+                'title' : title(search),
                 'paragraphs' : summary(scrape(search))
             }
 
