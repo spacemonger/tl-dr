@@ -52,4 +52,11 @@ def scrape(url):
     #print(repr(scraped))
     return repr(scraped)
     
+def title (url):
+    page = requests.get(url)
 
+    soup = BeautifulSoup(page.text, 'lxml')
+    
+    tit=soup.title.text
+
+    return tit
