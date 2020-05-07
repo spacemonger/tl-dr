@@ -11,11 +11,9 @@ window.onload = function () {
 
   //create HTMLCollection of all B6fmyf divs
   var searches = document.querySelectorAll(".B6fmyf"); //videos not integrated yet because the video class can also show up for nomarl searches
-  var searchTitles = document.querySelectorAll(".LC20lb");
   console.log(searches);
   console.log(searchTitles);
   var links = [];
-  var titles = [];
 
   iconUrl = chrome.runtime.getURL("/images/icon16.png");
   
@@ -26,7 +24,6 @@ window.onload = function () {
 
     
     links[i] = searches[i].previousSibling.href;
-    titles[i] = searches[i].previousSibling.innerText;
     
     (function() {
       var newDiv = document.createElement("div");
@@ -34,7 +31,6 @@ window.onload = function () {
       newDiv.innerHTML = '<img src="'+ iconUrl +'">';
       newDiv.className = ("tl-dr-sum-button");
       newDiv.setAttribute("data-url", links[i]);
-      newDiv.setAttribute("data-title", titles[i]);
       searches[i].appendChild(newDiv); //add tl;dr on the side
     }());
 
@@ -56,31 +52,37 @@ window.onload = function () {
         document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').style.visibility = "visible";      
         opened=0;
 
-        if (targetButton==null) {
-          console.log("u suck");
-        }
-
         var info = {link: targetButton.dataset.url, title: targetButton.dataset.title}
         chrome.runtime.sendMessage(info, (response) => {
           
           render(templateSummary, document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper'));
           var title=document.createElement("h1");
           title.className="title";
-          title.innerHTML="Placeholder Title";
+          title.innerHTML=response.title;
           document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(title);
+
+          var space=document.createElement("div"); //create spacing between each sentence
+          space.className="space";
+          document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(space);
+
+          var ts1=document.createElement("span");
+          ts1.innerHTML = "57 minutes saved"
+          document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(ts1);
+          var ts2=document.createElement("span");
+          ts2.innerHTML = "(1050 words → 120 words)"
+          document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(ts2);
+
           var x;
           for (x in response.paragraphs){
 
             console.log(response.paragraphs[x]);
-            //summary[x] = response.paragraphs[x];
-            var sentence=document.createElement("span");
+            var sentence=document.createElement("p");
             sentence.innerHTML=response.paragraphs[x];
             document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(sentence); //add sentence to the summary box
-            var space=document.createElement("div"); //create spacing between each sentence
-            space.className="space";
+            
             document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(space);
+           
             x++;
-
           }
 
         });
@@ -257,7 +259,6 @@ window.onload = function () {
           visibility: visible;
           background-color: #F6F6F6; 
           width: 420px; 
-          height: 130px; 
           overflow-x: hidden; 
           overflow-y: auto;
           text-align: center; 
@@ -287,7 +288,7 @@ window.onload = function () {
         margin-top: 15px;
       }
 
-      span {
+      p {
         text-align: left;
         font-family: questrial;
       }
