@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scrape import scrape
 from summarize import summary
+from keywords import TextRank4Keyword
 import json
 
 
@@ -19,9 +20,15 @@ def getUrl():
         # get url that the user has entered
         try:
             search = request.args['url']
+
+            rawText = scrape(search)
+            tr4kw = TextRank4Keyword()
+            tr4kw.analyze(rawText, candidate_pos = ['NOUN', 'PROPN', 'ADJ'], window_size=4)
+            
             
             this_dict = {
-                'paragraphs' : summary(scrape(search))
+                'keywords' : tr4kw.get_keywords(5),
+                'paragraphs' : summary(rawText)
             }
 
             

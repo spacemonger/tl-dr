@@ -21,7 +21,8 @@ def summary(text):
         return tldr
 
 
-#Reference https://www.britannica.com/science/Lenzs-law
+#tr = pytextrank.TextRank()
+#nlp.add_pipe(tr.PipelineComponent, name='textrank', last=True)
 '''
 text = """Lenz's law
         PHYSICS
@@ -49,7 +50,6 @@ text = """Lenz's law
         resistance in the material of the coil. Lenz’s law upholds the general principle of the conservation of energy. 
         If the current were induced in the opposite direction, its action would spontaneously draw the bar magnet into 
         the coil in addition to the heating effect, which would violate conservation of energy."""
-#Corpus/Gold Standard
+
+text.split(' ')
 '''
-        
-        
