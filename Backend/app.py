@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scrape import scrape
+from scrape import title
 from summarize import summary
 from keywords import TextRank4Keyword
 import json

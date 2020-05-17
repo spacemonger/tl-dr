@@ -10,12 +10,12 @@ window.onload = function () {
 
   //create HTMLCollection of all B6fmyf divs
   var searches = document.querySelectorAll(".B6fmyf"); //videos not integrated yet because the video class can also show up for nomarl searches
+
   var searchTitles = document.querySelectorAll(".LC20lb.DKV0Md");
   console.log(searches);
   console.log(searchTitles);
   var links = [];
   var titles = [];
-  
 
   iconUrl = chrome.runtime.getURL("/images/icon16.png");
   
@@ -23,26 +23,21 @@ window.onload = function () {
 
   var i;
   for (i = 0; i < searches.length; i++) {
-
     
     links[i] = searches[i].previousSibling.href;
     titles[i] = searches[i].previousSibling.innerText;
     console.log(links[i]);
   
-    
     (function() {
       var newDiv = document.createElement("div");
       
       newDiv.innerHTML = '<img src="'+ iconUrl +'">';
       newDiv.className = ("tl-dr-sum-button");
       newDiv.setAttribute("data-url", links[i]);
-      newDiv.setAttribute("data-title", titles[i]);
       searches[i].appendChild(newDiv); //add tl;dr on the side
     }());
 
   }
-
-  console.log(titles);
 
   var currentButton; //compare which summary is currently opened
 
@@ -60,31 +55,37 @@ window.onload = function () {
         document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').style.visibility = "visible";      
         opened=0;
 
-        if (targetButton==null) {
-          console.log("u suck");
-        }
-
         var info = {link: targetButton.dataset.url, title: targetButton.dataset.title}
         chrome.runtime.sendMessage(info, (response) => {
           
           render(templateSummary, document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper'));
           var title=document.createElement("h1");
           title.className="title";
-          title.innerHTML="Placeholder Title";
+          title.innerHTML=response.title;
           document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(title);
+
+          var space=document.createElement("div"); //create spacing between each sentence
+          space.className="space";
+          document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(space);
+
+          var ts1=document.createElement("span");
+          ts1.innerHTML = "57 minutes saved"
+          document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(ts1);
+          var ts2=document.createElement("span");
+          ts2.innerHTML = "(1050 words → 120 words)"
+          document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(ts2);
+
           var x;
           for (x in response.paragraphs){
 
             console.log(response.paragraphs[x]);
-            //summary[x] = response.paragraphs[x];
-            var sentence=document.createElement("span");
+            var sentence=document.createElement("p");
             sentence.innerHTML=response.paragraphs[x];
             document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(sentence); //add sentence to the summary box
-            var space=document.createElement("div"); //create spacing between each sentence
-            space.className="space";
+            
             document.querySelector('#tl-dr-popup').shadowRoot.querySelector('#tl-dr-wrapper').appendChild(space);
+           
             x++;
-
           }
 
         });
@@ -129,12 +130,14 @@ window.onload = function () {
         box-shadow: 0 2px 5px 0 rgba(0,0,0,0.49);
         color: rgb(30,30,30);
     }
+
     @font-face {
         font-family: 'questrial';
         src: url(/fonts/Questrial-Regular.ttf);
         font-style: normal;
         font-weight: normal;
     }
+
     @keyframes loading {
         from {
             transform: rotate(0deg);
@@ -142,6 +145,7 @@ window.onload = function () {
             transform: rotate(359deg);
         }
     }
+
     @keyframes order {
       0% {
         opacity: 1;
@@ -155,6 +159,7 @@ window.onload = function () {
         opacity: 1;
       }
     }
+
     .text {
       font-size: 20px;
       font-family: questrial;
@@ -168,6 +173,7 @@ window.onload = function () {
       height: 75px;
       width: 75px;
     }
+
     .blue {
       animation: loading 2s infinite, order 8s infinite;
       position: absolute;
@@ -175,6 +181,7 @@ window.onload = function () {
       left: 0px;
       z-index: 4;
     }
+
     .red {
       animation: loading 2s infinite, order 8s 2s infinite;
       position: absolute;
@@ -182,6 +189,7 @@ window.onload = function () {
       left: 0px;
       z-index: 3;
     }
+
     .yellow {
       animation: loading 2s infinite, order 8s 4s infinite;
       position: absolute;
@@ -189,6 +197,7 @@ window.onload = function () {
       left: 0px;
       z-index: 2;
     }
+
     .green {
       animation: loading 2s infinite, order 8s 6s infinite;
       position: absolute;
@@ -196,18 +205,22 @@ window.onload = function () {
       left: 0px;
       z-index: 1;
     }
+
     .first {
       animation: ellipsis1 2s infinite;
       margin-left: 1px;
     }
+
     .second {
       animation: ellipsis2 2s infinite;
       margin-left: 1px;
     }
+
     .third {
       animation: ellipsis3 2s infinite;
       margin-left: 1px;
     }
+
     @keyframes ellipsis1 {
       0% {
         opacity:0;
@@ -215,6 +228,7 @@ window.onload = function () {
         opacity: 1;
       }
     }
+
     @keyframes ellipsis2 {
       0% {
         opacity:0;
@@ -222,6 +236,7 @@ window.onload = function () {
         opacity: 1;
       }
     }
+
     @keyframes ellipsis3 {
       0% {
         opacity:0;
@@ -229,6 +244,7 @@ window.onload = function () {
         opacity: 1;
       }
     }
+
     </style>
     <div id="tl-dr-content">
         <span class="text">Just a Moment</h1><span class="first">.</span><span class="second">.</span><span class="third">.</span>
@@ -246,7 +262,6 @@ window.onload = function () {
           visibility: visible;
           background-color: #F6F6F6; 
           width: 420px; 
-          height: 130px; 
           overflow-x: hidden; 
           overflow-y: auto;
           text-align: center; 
@@ -270,13 +285,16 @@ window.onload = function () {
         font-style: normal;
         font-weight: normal;
       }
+
       .space {
         margin-top: 15px;
       }
-      span {
+
+      p {
         text-align: left;
         font-family: questrial;
       }
+
       .title {
         text-align: center;
         font-family: questrial;
