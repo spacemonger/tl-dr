@@ -3,7 +3,7 @@ import numpy as np
 import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
 
-nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load('en_core_web_lg')
 
 class TextRank4Keyword():
     """Extract keywords from text"""
@@ -72,10 +72,10 @@ class TextRank4Keyword():
         return g_norm
 
     
-    def get_keywords(self, number=10):
+    def get_keywords(self, number = 10):
         """Print top number keywords"""
-        keywords = []
-        node_weight = OrderedDict(sorted(self.node_weight.items(), key=lambda t: t[1], reverse=True))
+        keywords = list()
+        node_weight = OrderedDict(sorted(self.node_weight.items(), key=lambda t: t[1], reverse=True))      
         for i, (key, value) in enumerate(node_weight.items()):
             keywords += [key]
             if i > number:

@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scrape import scrape
 from scrape import title
-from summarize import summary
+from summarize import summary, length
 from keywords import TextRank4Keyword
 import json
 
@@ -26,10 +26,12 @@ def getUrl():
             tr4kw = TextRank4Keyword()
             tr4kw.analyze(rawText, candidate_pos = ['NOUN', 'PROPN', 'ADJ'], window_size=4)
             
-            
+            summarization = summary(rawText)
+
             this_dict = {
-                'keywords' : tr4kw.get_keywords(5),
-                'paragraphs' : summary(rawText)
+                'keywords' : tr4kw.get_keywords(10),
+                'paragraphs' : summarization,
+                'reduction' : length(rawText, summarization)
             }
 
             
