@@ -29,6 +29,7 @@ def getUrl():
             summarization = summary(rawText)
 
             this_dict = {
+                'title' : title(search),
                 'keywords' : tr4kw.get_keywords(10),
                 'paragraphs' : summarization,
                 'reduction' : length(rawText, summarization)
