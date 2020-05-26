@@ -6,8 +6,6 @@ import lxml
 import re
 
 
-
-
 def scrape(url):
     page = requests.get(url)
 
@@ -46,5 +44,19 @@ def scrape(url):
     for link in soup.find_all('link'):
         link.decompose
     soup.smooth()
-    return soup.prettify()
 
+    scraped = """"""
+    for string in soup.stripped_strings:
+        scraped += (string + " ")
+    
+    #print(repr(scraped))
+    return repr(scraped)
+    
+def title (url):
+    page = requests.get(url)
+
+    soup = BeautifulSoup(page.text, 'lxml')
+    
+    tit=soup.title.text
+
+    return tit
