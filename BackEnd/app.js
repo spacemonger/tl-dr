@@ -11,11 +11,12 @@ const server = http.createServer((req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   var search = url.parse(req.url,true).query;
-
   console.log(search.url);
-  scrape(search.url)
-  res.write("hello world");
-  res.end()
+  scrape(search.url).then(text => {
+    res.write(text)
+    res.end()
+  });
+
 });
 
 server.listen(port, hostname, () => {
@@ -23,12 +24,19 @@ server.listen(port, hostname, () => {
 });
 
 async function scrape(searched) {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto(searched, {waitUntil: "domcontentloaded"});
-  const html = await page.content();
 
-  await browser.close();
+  try{
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(searched, {waitUntil: "domcontentloaded"});
+    const html = await page.content();
+  
+    await browser.close();
+    return html;
+  } catch(e) {
+    console.log(e)
+  }
   //look into using cache if pressed again
+  return e;
 }
 
