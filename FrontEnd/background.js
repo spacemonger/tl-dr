@@ -1,7 +1,7 @@
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
      
-  const serverUrl = "http://127.0.0.1:5000/api"
+  const serverUrl = "http://localhost:5000/"
   
   fetch(serverUrl + "?url=" + request.link, {
     method: 'POST',
