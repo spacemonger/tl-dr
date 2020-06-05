@@ -2,15 +2,17 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
      
   const serverUrl = "http://localhost:5000/"
-  
+
   fetch(serverUrl + "?url=" + request.link, {
     method: 'POST',
+    origin: '*',
     mode: "cors",
-    body: JSON.stringify(request),
+    body: JSON.stringify({url: request.link}),
     headers:{
       'Content-Type': 'application/json'
     } })
   .then((response) => { 
+    console.log("ran")
     console.log(response)
     return response.json() 
   })

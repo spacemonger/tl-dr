@@ -52,9 +52,11 @@ window.onload = function () {
         opened=0;
 
         var info = {link: targetButton.dataset.url, title: targetButton.dataset.title}
+
+        console.log(info);
         
         chrome.runtime.sendMessage(info, (response) => {
-          
+
           render(templateSummary, tldrWrapper);
           createTitle(response.title);
 
